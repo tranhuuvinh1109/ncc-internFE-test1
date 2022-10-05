@@ -4,7 +4,6 @@ import Student from './components/Student';
 import Add from './components/Add';
 import { ToastContainer } from 'react-toastify';
 import Edit from './components/Edit';
-import { info } from 'autoprefixer';
 
 
 function App() {
@@ -30,11 +29,12 @@ function App() {
   const [studentEdit,setStudentEdit] = useState ()
   const [listStudent, setListStudent] = useState(database)
   const addStudent = (student)=>{
+    student.id = listStudent.length + 1
     setListStudent([...listStudent,student])
     console.log('add->',listStudent)
   }
   const deleteStudent = (id) =>{
-    setListStudent(listStudent.filter(e => e.id != id))
+    setListStudent(listStudent.filter(e => e.id !== id))
   }
   const handleEdit = (student) =>{
     setEdit(true)

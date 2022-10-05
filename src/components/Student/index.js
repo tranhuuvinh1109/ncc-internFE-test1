@@ -13,7 +13,8 @@ function Student({data,deleteStudent,handleEdit}) {
             {
               label: 'Có',
               onClick: () => {
-                if(id){
+                console.log('id',id);
+                if(id>=0){
                     deleteStudent(id)
                     
                     toast.success(`Đã xoá học sinh thành công!`, {

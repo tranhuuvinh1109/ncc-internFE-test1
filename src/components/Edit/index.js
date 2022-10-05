@@ -1,3 +1,7 @@
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {useEffect, useState} from 'react'
 import Input from '../Input'
 function Edit({data,handleUpdateStudent,handleCancel}) {
@@ -46,9 +50,32 @@ function Edit({data,handleUpdateStudent,handleCancel}) {
         e.preventDefault()
         const check = validate()
         if(check){
+            confirmAlert({
+                title: 'Xác nhận!!!',
+                message: 'Bạn có chắc chắn lưu thông tin học sinh này ?',
+                buttons: [
+                  {
+                    label: 'Có',
+                    onClick: () => {
+                        if(id >=0 ){
+                            handleUpdateStudent(id,infor)
+                            handleCancel()
+                            toast.success(`Đã sửa thông tin học sinh thành công!`, {
+                                position: toast.POSITION.TOP_RIGHT
+                            });
 
-            handleUpdateStudent(id,infor)
-            handleCancel()
+                        }else{
+                            toast.error(`Sửa thông tin học sinh thất bại!`, {
+                                position: toast.POSITION.TOP_RIGHT
+                            });
+                        }
+                    }
+                  },
+                  {
+                    label: 'Không'
+                  }
+                ]
+              });
         }
     }
     return ( 
@@ -59,7 +86,7 @@ function Edit({data,handleUpdateStudent,handleCancel}) {
                 <Input type='text' name='lastName' handleInputChange={handleInputChange} value={infor.lastName} validate={errorMsg}></Input>
                 <Input type='text' name='age' handleInputChange={handleInputChange} value={infor.age} validate={errorMsg}></Input>
                 <Input type='text' name='classroom' handleInputChange={handleInputChange} value={infor.classroom} validate={errorMsg}></Input>
-                {/* <Input type='file' name='avatar' handleInputChange={handleInputChange} value={infor.avatar}></Input> */}
+                {/* <Input type='text' name='avatar' handleInputChange={handleInputChange} value={infor.avatar}></Input> */}
                 <button className='w-full py-2 border rounded-lg border-solid border-neutral-400 bg-yellow-200 mt-3 hover:bg-sky-700 text-zinc-50' >
                     Lưu thông tin
                 </button>
